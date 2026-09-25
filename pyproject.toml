@@ -4,16 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "global-directory"
-version = "3.0.1"
-description = "Share any local folder publicly via Cloudflare Tunnel with a beautiful file browser UI"
+version = "3.0.3"
+description = "Share files from your computer for free. One command gives anyone a public link — no account, no upload, no cost."
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = ["cloudflare", "tunnel", "file-sharing", "local-network"]
-dependencies = [
-    "qrcode[pil]>=7.4.0",
-    "pillow>=9.0.0",
-]
+keywords = ["free file sharing","share folder online","share files free","no upload","instant file sharing","share large files","one command","public link","file browser","file server","folder sharing","cloudflare","cloudflare tunnel","ngrok alternative","expose localhost","temporary file sharing","file transfer","cli","python"]
 
 [project.scripts]
 global-directory = "global_directory.cli:main"
@@ -21,3 +17,4 @@ global-directory = "global_directory.cli:main"
 [project.urls]
 Homepage = "https://github.com/deevanshuguru/global-directory"
 Repository = "https://github.com/deevanshuguru/global-directory"
+PyPI = "https://pypi.org/project/global-directory/"
