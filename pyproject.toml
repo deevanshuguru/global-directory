@@ -1,3 +1,23 @@
 [build-system]
-requires=["setuptools>=61.0","wheel"]
-build-backend="setuptools.build_meta"
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "global-directory"
+version = "3.0.1"
+description = "Share any local folder publicly via Cloudflare Tunnel with a beautiful file browser UI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["cloudflare", "tunnel", "file-sharing", "local-network"]
+dependencies = [
+    "qrcode[pil]>=7.4.0",
+    "pillow>=9.0.0",
+]
+
+[project.scripts]
+global-directory = "global_directory.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/deevanshuguru/global-directory"
+Repository = "https://github.com/deevanshuguru/global-directory"

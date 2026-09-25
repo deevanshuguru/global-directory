@@ -34,7 +34,11 @@ def start_cmd():
             ["cloudflared", "tunnel", "--url", f"http://localhost:{port}"],
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
     except FileNotFoundError:
-        print("  ERROR: cloudflared not found. Install: brew install cloudflared"); return
+        print("  ERROR: cloudflared not found.")
+        print("  Mac:   brew install cloudflared")
+        print("  Linux: https://github.com/cloudflare/cloudflared/releases")
+        print("  Win:   winget install Cloudflare.cloudflared")
+        return
 
     with open(PID_FILE, "w") as f: f.write(str(os.getpid()))
 
