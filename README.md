@@ -1,5 +1,7 @@
 # global-directory
 
+[![PyPI](https://img.shields.io/pypi/v/global-directory)](https://pypi.org/project/global-directory/) [![PyPI Downloads](https://img.shields.io/pypi/dm/global-directory)](https://pypi.org/project/global-directory/)
+
 Instantly share any local folder publicly via Cloudflare Tunnel with a beautiful file browser UI.
 
 ## Install
