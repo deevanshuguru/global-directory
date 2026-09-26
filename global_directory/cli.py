@@ -107,7 +107,7 @@ def start_cmd():
     directory = os.path.realpath(os.getcwd())
     port = find_free_port()
 
-    print(f"\n  Global Directory  v3.0.3")
+    print(f"\n  Global Directory  v4.0.2")
     print(f"  {'-' * 46}")
     print(f"  Folder  : {directory}")
     print(f"  Local   : http://localhost:{port}")

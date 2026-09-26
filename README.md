@@ -6,7 +6,7 @@
 
 No account. No upload. No cost. Files stay on your machine — just a public link anyone can open from any device.
 
-![Terminal](https://github.com/user-attachments/assets/b5d33952-77a3-45c1-87c6-8a9753842147)
+![Terminal](https://raw.githubusercontent.com/deevanshuguru/global-directory/main/docs/assets/terminal.png)
 
 ---
 
@@ -54,15 +54,15 @@ Press Ctrl+C or run the stop command to end the session.
 
 ### File browser — grid view with filters and search
 
-![File Browser](https://github.com/user-attachments/assets/2e1d731b-1e0a-4be2-b7a7-47c68795199c)
+![File Browser](https://raw.githubusercontent.com/deevanshuguru/global-directory/main/docs/assets/grid-view.png)
 
 ### Code preview with syntax highlighting
 
-![Code Preview](https://github.com/user-attachments/assets/79fff755-1476-4b49-8c36-5c5914f59024)
+![Code Preview](https://raw.githubusercontent.com/deevanshuguru/global-directory/main/docs/assets/code-preview.png)
 
 ### Image preview
 
-![Image Preview](https://github.com/user-attachments/assets/1946df2e-eb82-42d7-911f-e0b98bea696c)
+![Image Preview](https://raw.githubusercontent.com/deevanshuguru/global-directory/main/docs/assets/image-preview.png)
 
 ---
 
