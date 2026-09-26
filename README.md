@@ -6,7 +6,7 @@
 
 No account. No upload. No cost. Files stay on your machine — just a public link anyone can open from any device.
 
-![Terminal](https://github.com/user-attachments/assets/8b12e119-8b55-406d-b920-3963fab137d5)
+![Terminal](https://github.com/user-attachments/assets/b5d33952-77a3-45c1-87c6-8a9753842147)
 
 ---
 
