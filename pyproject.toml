@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "global-directory"
-version = "3.0.3"
+version = "4.0.0"
 description = "Share files from your computer for free. One command gives anyone a public link — no account, no upload, no cost."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -18,3 +18,8 @@ global-directory = "global_directory.cli:main"
 Homepage = "https://github.com/deevanshuguru/global-directory"
 Repository = "https://github.com/deevanshuguru/global-directory"
 PyPI = "https://pypi.org/project/global-directory/"
+
+# Ensures templates/ and static/ are included in PyPI distribution.
+# Without this, pip install would get Python files only and the server would crash.
+[tool.setuptools.package-data]
+"global_directory" = ["templates/*.html", "static/*.css", "static/*.js"]

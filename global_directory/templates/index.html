@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>__TITLE__ — Global Directory</title>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN — handles layout, spacing, colors, typography -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Highlight.js — syntax highlighting inside code preview -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+  <!-- Custom styles — only what Tailwind cannot handle cleanly -->
+  <link rel="stylesheet" href="/static/style.css">
+
+  <!-- Extend Tailwind with our accent color and font -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { acc: '#6366f1' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 text-sm font-sans min-h-screen pb-14">
+
+<!-- ── Header ──────────────────────────────────────────────────────────── -->
+<header class="bg-white border-b border-slate-200 px-5 h-14 flex items-center gap-3 sticky top-0 z-50 shadow-sm">
+  <div class="font-bold text-[15px] whitespace-nowrap shrink-0">📁 Global Directory</div>
+  <!-- Breadcrumb — populated by Python via __BREADCRUMB__ -->
+  <div class="flex-1 flex items-center gap-1 flex-wrap text-xs overflow-hidden" id="bc">__BREADCRUMB__</div>
+  <!-- View toggle: grid / list -->
+  <div class="flex gap-1 shrink-0">
+    <button id="gb" title="Grid view" class="vbtn on">⊞</button>
+    <button id="lb" title="List view" class="vbtn">☰</button>
+  </div>
+</header>
+
+<!-- ── Stats bar ────────────────────────────────────────────────────────── -->
+<div class="flex items-center gap-3 px-5 py-2.5 bg-white border-b border-slate-200 flex-wrap text-xs text-slate-500">
+  <span>📁 <b class="text-slate-800 font-semibold" id="sf">__N_FOLDERS__</b> Folders</span>
+  <span class="text-slate-300 text-lg">|</span>
+  <span>📄 <b class="text-slate-800 font-semibold" id="sfi">__N_FILES__</b> Files</span>
+  <span class="text-slate-300 text-lg">|</span>
+  <span>💾 <b class="text-slate-800 font-semibold">__TOTAL_SIZE__</b></span>
+  <span class="text-slate-300 text-lg">|</span>
+  <span>Shown: <b class="text-slate-800 font-semibold" id="sv">__N_TOTAL__</b></span>
+</div>
+
+<!-- ── Controls: search + filter tabs ───────────────────────────────────── -->
+<div class="px-5 py-2.5 bg-white border-b border-slate-200 flex gap-2 items-center flex-wrap">
+  <!-- Search bar -->
+  <div class="flex items-center gap-2 border border-slate-200 rounded-lg px-3 h-9 min-w-[200px] bg-slate-50 focus-within:border-indigo-500 focus-within:bg-white transition">
+    <span class="text-slate-400 text-[13px]">🔍</span>
+    <input id="si" type="text" placeholder="Search files and folders..."
+      autocomplete="off"
+      class="border-none bg-transparent outline-none text-[13px] text-slate-800 w-full font-sans">
+    <button id="xb" class="hidden text-slate-400 text-xs hover:text-slate-700">✕</button>
+  </div>
+  <!-- Type filter tabs -->
+  <div class="flex gap-1 flex-wrap">
+    <button class="tab on" data-f="all">All</button>
+    <button class="tab" data-f="folder">📁 Folders</button>
+    <button class="tab" data-f="image">🖼 Images</button>
+    <button class="tab" data-f="video">🎬 Video</button>
+    <button class="tab" data-f="audio">🎵 Audio</button>
+    <button class="tab" data-f="document">📄 Docs</button>
+    <button class="tab" data-f="code">💻 Code</button>
+    <button class="tab" data-f="data">📊 Data</button>
+    <button class="tab" data-f="archive">🗜 Archives</button>
+  </div>
+</div>
+
+<!-- ── Extension chips — built dynamically by app.js ────────────────────── -->
+<div id="er" class="px-5 pt-2 pb-2.5 flex items-center gap-1.5 flex-wrap min-h-[40px]"></div>
+
+<!-- ── Sort controls ────────────────────────────────────────────────────── -->
+<div class="px-5 py-2 flex items-center gap-2 bg-slate-100 border-b border-slate-200">
+  <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Sort</span>
+  <button class="sbtn on" data-s="name">Name ▲</button>
+  <button class="sbtn" data-s="size">Size</button>
+  <button class="sbtn" data-s="modified">Date</button>
+  <button class="sbtn" data-s="type">Type</button>
+</div>
+
+<!-- ── Main content: grid or list — rendered by app.js ──────────────────── -->
+<main id="wrap" class="p-5 min-h-[300px]"></main>
+
+<!-- ── Empty state ──────────────────────────────────────────────────────── -->
+<div id="emp" class="hidden text-center py-16 text-slate-400 leading-loose">
+  <div class="text-5xl mb-2">🕳</div>
+  <div>Nothing here.</div>
+</div>
+
+<!-- ── Preview Modal ────────────────────────────────────────────────────── -->
+<div id="modal" class="hidden fixed inset-0 bg-black/60 z-[999] flex items-center justify-center p-5 backdrop-blur-sm">
+  <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+
+    <!-- Modal header: file name + close button -->
+    <div class="flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 shrink-0">
+      <div class="flex items-center gap-3 min-w-0">
+        <span id="modal-icon" class="text-3xl shrink-0"></span>
+        <div class="min-w-0">
+          <div id="modal-name" class="text-[15px] font-semibold truncate"></div>
+          <div id="modal-meta" class="text-xs text-slate-400 mt-0.5"></div>
+        </div>
+      </div>
+      <button id="modal-close"
+        class="w-8 h-8 rounded-lg border border-slate-200 bg-slate-50 text-sm hover:bg-red-50 hover:border-red-300 hover:text-red-500 transition shrink-0">
+        ✕
+      </button>
+    </div>
+
+    <!-- Modal body: preview content injected by app.js -->
+    <div id="modal-body" class="flex-1 overflow-auto p-5 flex items-start justify-center"></div>
+
+    <!-- Modal footer: download button -->
+    <div class="px-5 py-3.5 border-t border-slate-200 flex justify-end shrink-0">
+      <a id="modal-dl" href="#" download
+        class="px-5 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-[13px] font-semibold rounded-lg transition">
+        ↓ Download
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Items data — JSON read by app.js, not executed by browser -->
+<script type="application/json" id="gd">__ITEMS_JSON__</script>
+
+<!-- App logic -->
+<script src="/static/app.js"></script>
+
+
+<!-- ── Footer ──────────────────────────────────────────────────────────── -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-200 py-2.5 px-5 text-center text-xs text-slate-400 z-40">
+  Made with &#10084;&#65039; by
+  <a href="https://www.linkedin.com/in/deevanshu-guru/" target="_blank"
+     class="text-indigo-500 hover:underline font-medium">Deevanshu Guru</a>
+  <span class="mx-1.5">&#183;</span>
+  <a href="https://github.com/deevanshuguru" target="_blank"
+     class="text-indigo-500 hover:underline font-medium">GitHub</a>
+  <span class="mx-1.5">&#183;</span>
+  <a href="https://www.instagram.com/deevanshu_guru" target="_blank"
+     class="text-indigo-500 hover:underline font-medium">Instagram</a>
+</footer>
+
+</body>
+</html>
